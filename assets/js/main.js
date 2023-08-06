@@ -6,7 +6,6 @@ $(window).ready(function () {
   });
 });
 
-
 // animation
 wow = new WOW({
   boxClass: "animate__animated", // default
@@ -29,3 +28,23 @@ function aosInit() {
   });
 }
 window.addEventListener("load", aosInit);
+
+$(".owl-carousel").owlCarousel({
+  loop: true,
+  margin: 10,
+  autoplay: true,
+  autoplayTimeout: 3000,
+  autoplayHoverPause: false,
+  nav: true,
+  responsive: {
+    0: {
+      items: 1,
+    },
+    600: {
+      items: 3,
+    },
+    1000: {
+      items: 3,
+    },
+  },
+});

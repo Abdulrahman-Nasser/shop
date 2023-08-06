@@ -9,7 +9,9 @@
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Jost:wght@400;600;800&family=Lemonada:wght@400;500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;600;700&family=Jost:wght@400;600;800&family=Lemonada:wght@400;500;700&display=swap"
+        rel="stylesheet">
 
     <!-- vendor files -->
     <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.css">
@@ -17,6 +19,8 @@
     <link rel="stylesheet" href="assets/vendor/light box/lightbox.min.css">
     <link rel="stylesheet" href="assets/vendor/wow/animate.min.css">
     <link rel="stylesheet" href="assets/vendor/aos/aos.css">
+    <link rel="stylesheet" href="assets/vendor/owl carousel/owl.theme.default.min.css">
+    <link rel="stylesheet" href="assets/vendor/owl carousel/owl.carousel.min.css">
 
     <!-- main css -->
     <link rel="stylesheet" href="assets/css/main.css">
@@ -25,10 +29,38 @@
 <body>
 
 
+    <header>
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">فاشونيستا</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav m-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">الرئيسية</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="men.html">رجالي</a>
+                        </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link " aria-disabled="true">سيدات</a>
+                        </li>
+                    </ul>
+                 
+                </div>
+            </div>
+        </nav>
+    </header>
+
     <main id="main">
 
         <!-- Features Section - Home Page -->
-        <section id="features" class="features p-70">
+        <section id="features" class="features mt-5">
 
             <!--  Section Title -->
             <div class="container section-title text-center" data-aos="fade-up">
@@ -36,10 +68,17 @@
                 <p> .اهلا بك في موقعنا ، يمكنك شراء منجاتك بكل ارياحية</p>
             </div><!-- End Section Title -->
 
+
+            <div class="owl-carousel owl-theme item">
+                <img src="assets/img/company_1.jpg" alt="">
+                <img src="assets/img/company_2.jpg" alt="">
+                <img src="assets/img/company_3.jpg" alt="">
+            </div>
+
             <div class="container mt-5">
 
-                <div class="row  align-items-center justify-content-between features-item">
-                    <div class="col-lg-7 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+                <div class="row  align-items-center justify-content-center features-item">
+                    <div class="col-lg-8 order-2 order-lg-1" data-aos="fade-up" data-aos-delay="200">
                         <div class="row justify-content-between">
                             <div class="col-lg-6">
                                 <div class="men">
@@ -73,13 +112,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-5 order-1 order-lg-2 d-flex align-items-center" data-aos="zoom-out"
-                        data-aos-delay="100">
-                        <div class="image-stack">
-                            <img src="assets/img/image.webp" alt="" class="stack-front">
-                            <img src="assets/img/image2.webp" alt="" class="stack-back">
-                        </div>
-                    </div>
                 </div><!-- Features Item -->
 
 
@@ -95,6 +127,7 @@
     <script src="assets/vendor/aos/aos.js"></script>
     <script src="assets/vendor/wow/wow.min.js"></script>
     <script src="assets/vendor/light box/lightbox.min.js"></script>
+    <script src="assets/vendor/owl carousel/owl.carousel.min.js"></script>
     <!-- main js -->
     <script src="assets/js/main.js"></script>
 </body>

@@ -2,8 +2,7 @@
 body {
 
     font-family: 'Lemonada', cursive;
-    /* background-color: #f1f1f1; */
-    direction: rtl;
+
 }
 
 img {
@@ -23,6 +22,12 @@ a {
 }
 
 /*################################*/
+
+/* header */
+
+header{
+    box-shadow: 0 0 10px black;
+}
 
 /******/
 /* features */
@@ -231,6 +236,9 @@ a {
     box-shadow: 0 0 10px black;
 }
 
+.item img{
+    height: 20vh;
+}
 /*End Features*/
 
 /*man page*/

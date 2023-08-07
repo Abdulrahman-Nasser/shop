@@ -3,6 +3,17 @@ body {
 
     font-family: 'Lemonada', cursive;
 
+
+}
+.img-radius{
+    border-radius: 100%;
+}
+.card-title{
+    color: black;
+}
+
+.direction_right{
+    direction: rtl;
 }
 
 img {
@@ -280,8 +291,13 @@ header{
     overflow: hidden;
 }
 
+
 .company .card {
     text-align: center;
+}
+.company .card .img-fluid {
+    height: 148px;
+    width: 77%;
 }
 
 .company .card .card-img {
@@ -315,6 +331,15 @@ header{
     font-size: 18px;
     font-weight: 500;
     font-family: 'Josefin Sans', sans-serif;
+}
+
+@media screen and (max-width: 600px) {
+    .col-sm{
+        width: 77% !important;
+    }
+    .center{
+        justify-content: center;
+    }
 }
 
 /* end company page */

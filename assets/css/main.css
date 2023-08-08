@@ -1,18 +1,18 @@
 /*############# main #############*/
 body {
-
     font-family: 'Lemonada', cursive;
-
-
+    overflow: auto;
 }
-.img-radius{
+
+.img-radius {
     border-radius: 100%;
 }
-.card-title{
+
+.card-title {
     color: black;
 }
 
-.direction_right{
+.direction_right {
     direction: rtl;
 }
 
@@ -33,10 +33,87 @@ a {
 }
 
 /*################################*/
+/* chat */
+
+.chat {
+    position: fixed;
+    bottom: 10px;
+    right: 50px;
+    padding: 5px 15px;
+    border-radius: 5px 30px;
+    box-shadow: 0 0 10px #52c75c;
+    background-color: #52c75c;
+    color: white;
+    text-align: center;
+    z-index: 255555;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.chat:hover {
+    background-color: transparent;
+    color: #52c75c;
+}
+
+.chat-icon i {
+    font-size: 30px;
+}
+
+@media screen and (max-width: 600px) {
+    .chat {
+        right: 10px;
+    }
+
+}
+
+/* chat content */
+.chat-container {
+    position: fixed;
+    box-shadow: 0 0 10px #52c75c;
+    background-color: white;
+    border-radius: 15px;
+    padding: 15px 10px;
+    overflow: hidden;
+    bottom: 90px;
+    right: 50px;
+    z-index: 2;
+    height: 0;
+    visibility: hidden;
+    padding: 0;
+}
+
+.chat-container2 {
+    position: fixed;
+    box-shadow: 0 0 10px #52c75c;
+    background-color: white;
+    border-radius: 15px;
+    padding: 15px 10px;
+    overflow: hidden;
+    bottom: 90px;
+    right: 50px;
+    z-index: 2;
+    transition: all .3s;
+}
+
+.message {
+    text-align: right;
+}
+
+@media screen and (max-width:600px) {
+    .chat-container2 {
+        width: 86%;
+        padding: 11px 13px;
+        right: 20px;
+    }
+}
+
+
+
+/*################################*/
 
 /* header */
 
-header{
+header {
     box-shadow: 0 0 10px black;
 }
 
@@ -247,9 +324,10 @@ header{
     box-shadow: 0 0 10px black;
 }
 
-.item img{
+.item img {
     height: 20vh;
 }
+
 /*End Features*/
 
 /*man page*/
@@ -278,16 +356,23 @@ header{
     color: white !important;
 }
 
+@media screen and (max-width:768px) {
+    .man-category {
+        height: 100%;
+    }
+   
+}
 @media screen and (max-width:600px) {
     .man-category {
         height: 100%;
     }
 }
 
+
 /* end men page */
 
 /* start company page */
-.company{
+.company {
     overflow: hidden;
 }
 
@@ -295,6 +380,7 @@ header{
 .company .card {
     text-align: center;
 }
+
 .company .card .img-fluid {
     height: 148px;
     width: 77%;
@@ -334,10 +420,11 @@ header{
 }
 
 @media screen and (max-width: 600px) {
-    .col-sm{
+    .col-sm {
         width: 77% !important;
     }
-    .center{
+
+    .center {
         justify-content: center;
     }
 }
@@ -420,7 +507,8 @@ header{
 .items .items-text2 .btn:hover::before {
     width: 100%;
 }
-.items .card h3{
+
+.items .card h3 {
     font-size: 22px;
     color: #000000;
     font-weight: 700;
@@ -430,7 +518,7 @@ header{
 }
 
 @media screen and (max-width:600px) {
-    .items .items-text2 .btn{
+    .items .items-text2 .btn {
         font-size: 12px;
     }
 }

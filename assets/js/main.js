@@ -1,10 +1,23 @@
-// loading page
-$(window).ready(function () {
-  $(".loader").fadeOut(1200, function () {
-    $("body").css("overflow", "auto");
-    $(".loading-spiner").fadeOut(1500);
+// chat code
+function chat() {
+  chatIcon = document.querySelector(".chat");
+  chatContent = document.getElementById("chat_box");
+
+  check = true;
+  chatIcon.addEventListener("click", function () {
+    if (check == true) {
+      chatContent.classList.add("chat-container2");
+      chatContent.classList.add("animate__bounceInUp");
+      chatContent.classList.remove("chat-container");
+      check = false;
+    } else {
+      chatContent.classList.remove("chat-container2");
+      chatContent.classList.add("chat-container");
+      check = true;
+    }
   });
-});
+}
+window.addEventListener("load", chat);
 
 // animation
 wow = new WOW({

@@ -87,16 +87,33 @@ a {
     box-shadow: 0 0 10px #52c75c;
     background-color: white;
     border-radius: 15px;
-    padding: 15px 10px;
+    padding: 15px;
     overflow: hidden;
     bottom: 90px;
     right: 50px;
     z-index: 2;
     transition: all .3s;
+    width: 40%;
 }
 
 .message {
     text-align: right;
+}
+
+@media screen and (max-width:1024px) {
+
+    .chat-container2 {
+        width: 86%;
+    }
+}
+
+@media screen and (max-width:768px) {
+
+    .chat-container2 {
+        width: 81%;
+        padding: 13px 47px;
+        right: 62px;
+    }
 }
 
 @media screen and (max-width:600px) {
@@ -360,8 +377,9 @@ header {
     .man-category {
         height: 100%;
     }
-   
+
 }
+
 @media screen and (max-width:600px) {
     .man-category {
         height: 100%;

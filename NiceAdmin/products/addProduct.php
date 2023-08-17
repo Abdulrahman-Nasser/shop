@@ -9,22 +9,29 @@ include "../admin_functions/functions.php";
 // admin authorization
 auth_admin();
 
+$select  = "SELECT * FROM `shops`";
+$s = mysqli_query($conn , $select);
+$row = mysqli_fetch_assoc($s);
+
 
 // upload slide img code
 $image_error = [];
 if (isset($_POST['send'])) {
     $insert_msg = [];
     $name = $_POST['name'];
+    $shopID = $_POST['department'];
+
+    // upload img code
     $file_name = time() . $_FILES['file']['name'];
     $tmp_name = $_FILES['file']['tmp_name'];
     $location = 'upload/' . $file_name;
     $image_type = strtolower(pathinfo($location, PATHINFO_EXTENSION));
 
-    if ($image_type != 'jpg' && $image_type != 'png' && $image_type != 'jpeg') {
+    if ($image_type != 'jpg' && $image_type != 'png' && $image_type != 'jpeg' && $image_type != 'webp') {
         $image_error[] = 'برجاء رفع صور من نوع jpg , png';
     } else {
         move_uploaded_file($tmp_name, $location);
-        $insert = "INSERT INTO `main_icon`(`id`,`name`,`image`) VALUES (null,'$name','$file_name')";
+        $insert = "INSERT INTO `products`(`id`,`name`,`image`,`shopID`) VALUES (null,'$name','$file_name',$shopID)";
         $i = mysqli_query($conn, $insert);
         $insert_msg[] ='تم ادخال البيانات ';
     }
@@ -35,7 +42,7 @@ if (isset($_POST['send'])) {
     <div class="container col-md-6 text-cneter">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title text-center">اضافة صورة الى السلايد</h5>
+                <h5 class="card-title text-center"><strong>اضافة المنتجات</strong></h5>
                 <?php if (!empty($insert_msg)) : ?>
                     <div class="alert alert-success text-success text-center">
                         <?php foreach ($insert_msg as $item) : ?>
@@ -54,10 +61,22 @@ if (isset($_POST['send'])) {
                 <!-- Custom Styled Validation -->
                 <form class="row g-3 needs-validation" novalidate method="post" enctype="multipart/form-data">
                     <div class="col-md-12">
-                        <label for="validationCustom01" class="form-label"> اسم الأيقونة</label>
+                        <label for="validationCustom01" class="form-label"> <b>اسم المنتج</b></label>
                         <input type="text" class="form-control" name="name" id="validationCustom01" value="" required placeholder="برجاء ادخال اللغة العربية فقط">
                         <div class="valid-feedback">
                             الاسم مناسب ، احسنت
+                        </div>
+                    </div>
+                   
+                    <div class="col-md-12">
+                        <label for="validationCustom01" class="form-label"> <b>اسم المحل</b></label>
+                        <select name="department" id="validationcustom01" class="form-control">
+                            <?php foreach($s as $data): ?>
+                            <option value="<?= $data['id'] ?>"><?= $data['name'] ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                        <div class="valid-feedback">
+                            تم اختيار القسم
                         </div>
                     </div>
                     <div class="col-md-12">

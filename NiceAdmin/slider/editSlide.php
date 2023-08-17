@@ -5,7 +5,7 @@ include "../shared/asside.php";
 include "../admin_functions/configDB.php";
 include "../admin_functions/functions.php";
 
-
+auth_admin();
 
 $image_error = [];
 if (isset($_GET['update'])) {

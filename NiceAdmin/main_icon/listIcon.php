@@ -5,6 +5,10 @@ include "../shared/asside.php";
 include "../admin_functions/configDB.php";
 include "../admin_functions/functions.php";
 
+
+// admin authorization
+auth_admin();
+
 // select from main_icon 
 $select = "SELECT * from `main_icon`";
 $s = mysqli_query($conn, $select);

@@ -2,6 +2,9 @@
 include "shared/head.php";
 include "shared/header.php";
 include "shared/asside.php";
+include "admin_functions/functions.php";
+
+auth_admin();
 ?>
 
 

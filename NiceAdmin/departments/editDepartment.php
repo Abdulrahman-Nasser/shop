@@ -13,14 +13,21 @@ auth_admin();
 $image_error = [];
 if (isset($_GET['update'])) {
     $id = $_GET['update'];
-    $select = "SELECT * From `main_icon` where id = $id";
+    // validation select for arrangement
+    $selectOne = "SELECT * FROM `departments` where id != $id";
+    $s1 = mysqli_query($conn, $selectOne);
+
+    // select for get data into inputs
+    $select = "SELECT * From `departments` where id = $id ";
     $s = mysqli_query($conn, $select);
     $row = mysqli_fetch_assoc($s);
     $oldImg = $row['image'];
     if (isset($_POST['edit'])) {
         $insert_msg = [];
         $name = $_POST['name'];
-        
+        $category = $_POST['category'];
+        $arrangement = $_POST['arrangement'];
+
         // Check if a new file was uploaded
         if (!empty($_FILES['file']['name'])) {
             unlink('upload/' . $oldImg);
@@ -37,13 +44,22 @@ if (isset($_GET['update'])) {
         $new_location = 'upload/' . $file_name;
         $image_type_new = strtolower(pathinfo($new_location, PATHINFO_EXTENSION));
 
-        if ($image_type_new != 'jpg' && $image_type_new != 'png' && $image_type_new != 'jpeg') {
+        if ($image_type_new != 'jpg' && $image_type_new != 'png' && $image_type_new != 'jpeg' && $image_type_new != 'webp') {
             $image_error[] = 'برجاء رفع صور من نوع jpg , png';
-        } else {
+        }
 
-            $update = "UPDATE `main_icon` SET `id`=$id,`name`='$name',`image`='$file_name' WHERE id = $id";
+        // validation for arrangements
+        foreach ($s1 as $data) {
+            if ($arrangement == $data['arrangement']) {
+                $image_error[] = 'هذا الرقم مرتب من قبل برجاء تغير الرقم';
+            }
+        }
+
+        if (empty($image_error)) {
+            $update = "UPDATE `departments` SET `id`=$id,`name`='$name',`image`='$file_name',`category`='$category',`arrangement`=$arrangement WHERE id = $id";
             $u = mysqli_query($conn, $update);
             $insert_msg[] = 'تم تعديل البيانات بنجاح';
+            admin_path('departments/listDepartment.php');
         }
     }
 }
@@ -74,8 +90,22 @@ if (isset($_GET['update'])) {
                 <!-- Custom Styled Validation -->
                 <form class="row g-3 needs-validation" method="post" enctype="multipart/form-data">
                     <div class="col-md-12">
-                        <label for="validationCustom01" class="form-label"> اسم الأيقونة</label>
+                        <label for="validationCustom01" class="form-label"> اسم القسم</label>
                         <input type="text" class="form-control" name="name" id="validationCustom01" value="<?= $row['name'] ?>" required placeholder="برجاء ادخال اللغة العربية فقط">
+                        <div class="valid-feedback">
+                            الاسم مناسب ، احسنت
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="validationCustom01" class="form-label"> نوع القسم</label>
+                        <input type="text" class="form-control" name="category" id="validationCustom01" value="<?= $row['category'] ?>" required placeholder="برجاء ادخال اللغة العربية فقط">
+                        <div class="valid-feedback">
+                            الاسم مناسب ، احسنت
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="validationCustom01" class="form-label"> ترتيب القسم</label>
+                        <input type="number" class="form-control" name="arrangement" id="validationCustom01" value="<?= $row['arrangement'] ?>" required placeholder="برجاء ادخال رقم للترتيب ">
                         <div class="valid-feedback">
                             الاسم مناسب ، احسنت
                         </div>

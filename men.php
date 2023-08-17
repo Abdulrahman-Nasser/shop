@@ -1,6 +1,14 @@
 <?php
 include 'shared/head.php';
 include "shared/header.php";
+include "functions/configDB.php";
+
+// select from departments
+$select = "SELECT * FROM departments where category = 'رجالي' ORDER by arrangement Asc";
+$s = mysqli_query($conn , $select);
+
+
+
 ?>
 
 
@@ -18,53 +26,23 @@ include "shared/header.php";
         <div class="container">
 
             <div class="row features-item">
+                <?php foreach($s as $data) : ?>
                 <div class="col-lg-4 col-md-6 mt-2" data-aos="fade-up" data-aos-delay="200">
                     <div class="men">
-                        <a href="company.html">
+                        <a href="/shop/company.php?shop=<?= $data['id']?>">
                             <div class="card">
                                 <div class="img">
                                     <div class="overlay"></div>
-                                    <img src="assets/img/salonat.webp" class="card-img-top" alt="...">
+                                    <img src="niceAdmin/departments/upload/<?= $data['image']?>" class="card-img-top" alt="not found">
                                 </div>
                                 <div class="card-body text-center">
-                                    <h5 class="card-title">صالونات</h5>
+                                    <h5 class="card-title"><?= $data['name'] ?></h5>
                                 </div>
                             </div>
                         </a>
                     </div>
                 </div>
-
-                <div class="col-lg-4 col-md-6 mt-2" data-aos="fade-up" data-aos-delay="200">
-                    <div class="men">
-                        <a href="">
-                            <div class="card">
-                                <div class="img">
-                                    <div class="overlay"></div>
-                                    <img src="assets/img/spa.jpg" class="card-img-top" alt="...">
-                                </div>
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">سبا</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="col-lg-4 col-md-6 mt-2" data-aos="fade-up" data-aos-delay="200">
-                    <div class="men">
-                        <a href="men.html">
-                            <div class="card">
-                                <div class="img">
-                                    <div class="overlay"></div>
-                                    <img src="assets/img/men.jpg" class="card-img-top" alt="...">
-                                </div>
-                                <div class="card-body text-center">
-                                    <h5 class="card-title">عروض</h5>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+                <?php endforeach; ?>
 
             </div><!-- Features Item -->
 

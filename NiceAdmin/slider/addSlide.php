@@ -4,7 +4,7 @@ include "../shared/header.php";
 include "../shared/asside.php";
 include "../admin_functions/configDB.php";
 include "../admin_functions/functions.php";
-
+auth_admin();
 
 // upload slide img code
 $image_error = [];

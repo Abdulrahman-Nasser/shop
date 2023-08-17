@@ -1,7 +1,30 @@
 <?php
 include "shared/head.php";
-include "shared/header.php";
-include "shared/asside.php";
+include "admin_functions/configDB.php";
+include "admin_functions/functions.php";
+
+
+if (isset($_POST['login'])) {
+  $name = $_POST['username'];
+  $pass = $_POST['password'];
+  $select = "SELECT * FROM admins WHERE name = '$name' and password = '$pass'";
+  $s = mysqli_query($conn, $select);
+  $row = mysqli_fetch_assoc($s);
+  $numRows = mysqli_num_rows($s);
+
+  if ($numRows == 1) {
+    $_SESSION['admin-data'] = [
+      "userName" => $name,
+      "id" => $row['id'],
+    ];
+  
+
+    admin_path("index.php");
+  } else {
+    $emailErorr[] = 'Wrong password or username';
+  }
+}
+
 ?>
 
 
@@ -29,7 +52,7 @@ include "shared/asside.php";
                   <p class="text-center small">Enter your username & password to login</p>
                 </div>
 
-                <form class="row g-3 needs-validation" novalidate>
+                <form class="row g-3 needs-validation" novalidate method="post">
 
                   <div class="col-12">
                     <label for="yourUsername" class="form-label">Username</label>
@@ -46,18 +69,11 @@ include "shared/asside.php";
                     <div class="invalid-feedback">Please enter your password!</div>
                   </div>
 
+               
                   <div class="col-12">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                      <label class="form-check-label" for="rememberMe">Remember me</label>
-                    </div>
+                    <button class="btn btn-primary w-100" name="login" type="submit">Login</button>
                   </div>
-                  <div class="col-12">
-                    <button class="btn btn-primary w-100" type="submit">Login</button>
-                  </div>
-                  <div class="col-12">
-                    <p class="small mb-0">Don't have account? <a href="pages-register.html">Create an account</a></p>
-                  </div>
+                 
                 </form>
 
               </div>

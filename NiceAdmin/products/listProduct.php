@@ -46,8 +46,8 @@ if (isset($_GET['delete'])) {
                                 <tr>
                                     <th scope="col">id</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Image Name</th>
                                     <th scope="col">image</th>
+                                    <th scope="col">arrangement</th>
                                     <th scope="col">shop</th>
                                     <th scope="col">shop Description</th>
 
@@ -59,8 +59,8 @@ if (isset($_GET['delete'])) {
                                     <tr>
                                         <td><?= $data['productID'] ?></td>
                                         <td><?= $data['product_name'] ?></td>
-                                        <td><?= $data['product_img'] ?></td>
                                         <td><img src="upload/<?= $data['product_img'] ?>" width="70px" alt=""> </td>
+                                        <td><?= $data['arrangement'] ?></td>
                                         <td><?= $data['shop_name'] ?></td>
                                         <td><?= $data['shop_description'] ?></td>
 

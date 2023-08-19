@@ -9,17 +9,24 @@ include "../admin_functions/functions.php";
 // admin authorization
 auth_admin();
 
-$select  = "SELECT * FROM `shops`";
-$s = mysqli_query($conn , $select);
-$row = mysqli_fetch_assoc($s);
+// select for validation
+$select  = "SELECT * FROM `products`";
+$s = mysqli_query($conn, $select);
+
+// select fo validation arrangement
+$selectOne = "SELECT * FROM `shops_and_category`";
+$s1 = mysqli_query($conn, $selectOne);
 
 
 // upload slide img code
 $image_error = [];
+$arrange_error = [];
+$name = '';
+$insert_msg = [];
 if (isset($_POST['send'])) {
-    $insert_msg = [];
     $name = $_POST['name'];
     $shopID = $_POST['department'];
+    $arrangement = $_POST['arrangement'];
 
     // upload img code
     $file_name = time() . $_FILES['file']['name'];
@@ -29,11 +36,21 @@ if (isset($_POST['send'])) {
 
     if ($image_type != 'jpg' && $image_type != 'png' && $image_type != 'jpeg' && $image_type != 'webp') {
         $image_error[] = 'برجاء رفع صور من نوع jpg , png';
-    } else {
+    }
+
+    //arrangement validation 
+    foreach ($s as $data) {
+        if ($arrangement == $data['arrangement'] && $shopID == $data['shopID']) {
+            $arrange_error[] = 'هذا الرقم مرتب من قبل برجاء تغير الرقم';
+        }
+    }
+
+    // ready for insert
+    if (empty($image_error) && empty($arrange_error)) {
         move_uploaded_file($tmp_name, $location);
-        $insert = "INSERT INTO `products`(`id`,`name`,`image`,`shopID`) VALUES (null,'$name','$file_name',$shopID)";
+        $insert = "INSERT INTO `products`(`id`,`name`,`image`,`arrangement`,`shopID`) VALUES (null,'$name','$file_name',$arrangement,$shopID)";
         $i = mysqli_query($conn, $insert);
-        $insert_msg[] ='تم ادخال البيانات ';
+        $insert_msg[] = 'تم ادخال البيانات ';
     }
 }
 ?>
@@ -62,22 +79,36 @@ if (isset($_POST['send'])) {
                 <form class="row g-3 needs-validation" novalidate method="post" enctype="multipart/form-data">
                     <div class="col-md-12">
                         <label for="validationCustom01" class="form-label"> <b>اسم المنتج</b></label>
-                        <input type="text" class="form-control" name="name" id="validationCustom01" value="" required placeholder="برجاء ادخال اللغة العربية فقط">
+                        <input type="text" class="form-control" name="name" id="validationCustom01" value="<?= $name ?>" required placeholder="برجاء ادخال اللغة العربية فقط">
                         <div class="valid-feedback">
                             الاسم مناسب ، احسنت
                         </div>
                     </div>
-                   
+
                     <div class="col-md-12">
                         <label for="validationCustom01" class="form-label"> <b>اسم المحل</b></label>
                         <select name="department" id="validationcustom01" class="form-control">
-                            <?php foreach($s as $data): ?>
-                            <option value="<?= $data['id'] ?>"><?= $data['name'] ?></option>
+                            <?php foreach ($s1 as $data) : ?>
+                                <option value="<?= $data['id'] ?>"><?= $data['name'] ?> - <?= $data['category'] ?></option>
                             <?php endforeach; ?>
                         </select>
                         <div class="valid-feedback">
                             تم اختيار القسم
                         </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="validationCustom01" class="form-label"> <b>ترتيب المنتج</b></label>
+                        <input type="number" class="form-control" name="arrangement" id="validationCustom01" value="" required placeholder="برجاء ادخال اللغة العربية فقط">
+                        <div class="valid-feedback">
+                            رائع
+                        </div>
+                        <?php if (!empty($arrange_error)) : ?>
+                            <div class="alert alert-danger bg-transparent border-0 text-danger text-center">
+                                <?php foreach ($arrange_error as $item) : ?>
+                                    <b><?= $item ?></b>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
                     </div>
                     <div class="col-md-12">
                         <label for="validationCustom01" class="form-label">اضافة الصورة</label>

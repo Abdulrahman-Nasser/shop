@@ -345,32 +345,34 @@ header {
     height: 20vh;
 }
 
-/*End Features*/
 
+/*End Features*/
 /*man page*/
-.man-category {
-    background-image: url(../img/bg-man.jpg);
-    width: 100%;
-    height: 100vh;
-    background-position: center;
-    background-size: cover;
+
+.man-page {
     position: relative;
-    z-index: 1;
-    color: white;
 }
 
-.man-category .overlay-2 {
+.overlay-2 {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.74);
-    z-index: -1;
+    z-index: 0;
 }
 
+.bg{
+    position: fixed;
+    height: 100vh;
+    z-index: -1;
+}
+.bg img{
+    height: 100vh;
+}
 .man-category .card .card-title {
-    color: white !important;
+    color: black !important;
 }
 
 @media screen and (max-width:768px) {

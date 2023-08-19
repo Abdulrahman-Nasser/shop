@@ -18,7 +18,7 @@ if (isset($_GET['main_shop'])) {
 
 
 
-<main id="main" class="">
+<main id="main" class="direction_right">
 
     <!-- Features Section - man Page -->
     <section id="features " class="features">
@@ -58,8 +58,8 @@ if (isset($_GET['main_shop'])) {
 
             </div>
             <div class="items-text items-text2 p-70">
-                <a class="btn" href="tel:+20 1154710314">اتصل بنا</a>
-                <a class="btn" href="#map">موقعنا</a>
+                <a class="btn" href="tel:+20 1154710314"><?= $row['phone'] ?> <i class="bi bi-telephone"></i></a>
+                <a class="btn" target="_blank" href="https://<?= $row['location'] ?>">اللوكيشن</a>
 
             </div>
         </div>
@@ -76,51 +76,11 @@ if (isset($_GET['main_shop'])) {
     </section>
 
 
-    <!-- chat content -->
-    <section class="chat-content">
 
-        <!-- chat icon -->
-        <div class="chat" id="chat_icon">
-            <span class="chat-icon"><i class="bi bi-chat-dots"></i></span>
-        </div>
-        <!-- end chat icon -->
-
-        <!-- chat-content -->
-
-        <div class="chat-container text-center animate__animated " id="chat_box">
-            <div id="chat-box">
-                <div class="chat-message">
-                    <p>اهلا وسهلا بك</p>
-                </div>
-
-                <form action="index.html" method="post">
-                    <div class="row justify-content-center">
-
-                        <div class="col-lg-7 mt-3">
-                            <input type="text" name="" id="" required placeholder="الاسم" class="form-control">
-                        </div>
-                        <div class="col-lg-7 mt-3">
-                            <input type="email" name="" id="" required placeholder="الايميل" class="form-control">
-                        </div>
-                        <div class="col-lg-7 mt-3">
-                            <input type="number" name="" id="" required placeholder="الرقم" class="form-control">
-                        </div>
-                        <div class="col-lg-7 mt-3">
-                            <textarea name="message" id="" class="w-100 message" cols="30" rows="5" placeholder="يمكنك التواصل من خلال هذه المحادثه "></textarea>
-                        </div>
-                        <div class="col-lg-12">
-                            <button class="btn btn-primary">Send</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-
-    </section>
-    <!-- end chat content -->
 </main>
 
 
 <?php
+include "shared/chat.php";
 include "shared/script.php";
 ?>

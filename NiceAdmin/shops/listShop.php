@@ -10,7 +10,7 @@ include "../admin_functions/functions.php";
 auth_admin();
 
 // select from main_icon 
-$select = "SELECT * from `shops_and_category`";
+$select = "SELECT * from `shops_and_category` ORDER by arrangement asc";
 $s = mysqli_query($conn, $select);
 
 
@@ -39,7 +39,7 @@ if (isset($_GET['delete'])) {
 
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title text-center"><strong>الاقسام</strong></h5>
+                        <h5 class="card-title text-center"><strong>قائمة المحلات بالاقسام</strong></h5>
 
                         <!-- Table with stripped rows -->
                         <table class="table datatable">
@@ -48,8 +48,10 @@ if (isset($_GET['delete'])) {
                                     <th scope="col">id</th>
                                     <th scope="col">Name</th>
                                     <th scope="col">description</th>
-                                    <th scope="col">Image Name</th>
                                     <th scope="col">image</th>
+                                    <th scope="col">arrangement</th>
+                                    <th scope="col">phone</th>
+                                    <th scope="col">shop_location</th>
                                     <th scope="col">Department</th>
                                     <th scope="col">category</th>
                                
@@ -62,8 +64,10 @@ if (isset($_GET['delete'])) {
                                         <td><?= $data['id'] ?></td>
                                         <td><?= $data['name'] ?></td>
                                         <td><?= $data['description'] ?></td>
-                                        <td><?= $data['image'] ?></td>
                                         <td><img src="upload/<?= $data['image'] ?>" width="70px" alt=""> </td>
+                                        <td><?= $data['arrangement'] ?></td>
+                                        <td><?= $data['phone'] ?></td>
+                                        <td><?= $data['location'] ?></td>
                                         <td><?= $data['category'] ?></td>
                                         <td><?= $data['category_name'] ?></td>
                                         

@@ -50,7 +50,7 @@ if (isset($_GET['update'])) {
 
         // validation for arrangements
         foreach ($s1 as $data) {
-            if ($arrangement == $data['arrangement']) {
+            if ($arrangement == $data['arrangement'] && $category == $data['category']) {
                 $image_error[] = 'هذا الرقم مرتب من قبل برجاء تغير الرقم';
             }
         }
@@ -98,9 +98,12 @@ if (isset($_GET['update'])) {
                     </div>
                     <div class="col-md-12">
                         <label for="validationCustom01" class="form-label"> نوع القسم</label>
-                        <input type="text" class="form-control" name="category" id="validationCustom01" value="<?= $row['category'] ?>" required placeholder="برجاء ادخال اللغة العربية فقط">
+                        <select class="form-control" name="category" id="validationCustom01" value="<?= $row['department'] ?>" required>
+                            <option value="رجالي">رجالي</option>
+                            <option value="سيدات">سيدات</option>
+                        </select>
                         <div class="valid-feedback">
-                            الاسم مناسب ، احسنت
+                              جيد 
                         </div>
                     </div>
                     <div class="col-md-12">

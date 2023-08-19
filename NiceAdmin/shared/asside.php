@@ -1,3 +1,12 @@
+
+<?php
+if(isset($_POST['logout'])){
+    session_unset();
+    session_destroy();
+    header("location:logine.php");
+}
+?>
+
 <!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar" style="direction: rtl;">
 
@@ -25,7 +34,7 @@
                         <i class="bi bi-circle"></i><span>عرض</span>
                     </a>
                 </li>
-              
+
             </ul>
         </li><!-- End Components Nav -->
 
@@ -44,11 +53,11 @@
                         <i class="bi bi-circle"></i><span><strong>عرض</strong></span>
                     </a>
                 </li>
-              
+
             </ul>
         </li><!-- End Components Nav -->
 
-        
+
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-department" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-menu-button-wide"></i><span> الاقسام</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -64,11 +73,11 @@
                         <i class="bi bi-circle"></i><span><strong>عرض</strong></span>
                     </a>
                 </li>
-              
+
             </ul>
         </li><!-- End Components Nav -->
 
-          
+
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-shop" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-menu-button-wide"></i><span> المحلات</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -84,7 +93,7 @@
                         <i class="bi bi-circle"></i><span><strong>عرض</strong></span>
                     </a>
                 </li>
-              
+
             </ul>
         </li><!-- End Components Nav -->
 
@@ -103,30 +112,22 @@
                         <i class="bi bi-circle"></i><span><strong>عرض</strong></span>
                     </a>
                 </li>
-              
+
             </ul>
         </li><!-- End Components Nav -->
 
 
 
-
-        <li class="nav-heading">Pages</li>
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="profile.php">
-                <i class="bi bi-person"></i>
-                <span>Profile</span>
-            </a>
-        </li><!-- End Profile Page Nav -->
-
-
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="/shop/niceAdmin/login.php">
-                <i class="bi bi-box-arrow-in-right"></i>
-                <span>Login</span>
-            </a>
-        </li><!-- End Login Page Nav -->
+        <?php if (isset($_SESSION['admin-data'])) : ?>
+            <li class="nav-item">
+                <form action="" method="post">
+                    <button class="nav-link collapsed" name="logout">
+                        <i class="bi bi-box-arrow-in-right"></i>
+                        <span>logout</span>
+                    </button>
+                </form>
+            </li>
+        <?php endif; ?>
 
 
 

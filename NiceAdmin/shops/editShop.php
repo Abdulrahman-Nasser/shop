@@ -10,16 +10,17 @@ auth_admin();
 
 
 // select for update
-$select3 = "SELECT * FROm `departments`";
-$s3 = mysqli_query($conn,$select3);
+$select3 = "SELECT * FROM `departments`";
+$s3 = mysqli_query($conn, $select3);
 
 
 // edit main icon 
 $image_error = [];
 if (isset($_GET['update'])) {
     $id = $_GET['update'];
+
     // validation select for arrangement
-    $selectOne = "SELECT * FROM `shops` where id != $id";
+    $selectOne = "SELECT * FROM `shops_and_category` where id != $id";
     $s1 = mysqli_query($conn, $selectOne);
 
     // select for get data into inputs
@@ -33,6 +34,9 @@ if (isset($_GET['update'])) {
         $name = $_POST['name'];
         $description = $_POST['description'];
         $categoryID = $_POST['department'];
+        $arrangement = $_POST['arrangement'];
+        $phone = $_POST['phone'];
+        $shop_location = $_POST['shop_location'];
 
         // Check if a new file was uploaded
         if (!empty($_FILES['file']['name'])) {
@@ -56,13 +60,13 @@ if (isset($_GET['update'])) {
 
         // validation for arrangements
         foreach ($s1 as $data) {
-            if ($arrangement == $data['arrangement']) {
+            if ($arrangement == $data['arrangement'] && $categoryID == $data['categoryID'] ) {
                 $image_error[] = 'هذا الرقم مرتب من قبل برجاء تغير الرقم';
             }
         }
 
         if (empty($image_error)) {
-            $update = "UPDATE `shops` SET `id`=$id,`name`='$name',`description`='$description',`image`='$file_name',`categoryID`='$categoryID' WHERE id = $id";
+            $update = "UPDATE `shops` SET `id`=$id,`name`='$name',`description`='$description',`image`='$file_name',`arrangement`=$arrangement,`phone`=$phone,`shop_location`='$shop_location',`categoryID`='$categoryID' WHERE id = $id";
             $u = mysqli_query($conn, $update);
             $insert_msg[] = 'تم تعديل البيانات بنجاح';
             admin_path('shops/listShop.php');
@@ -110,10 +114,24 @@ if (isset($_GET['update'])) {
                         </div>
                     </div>
                     <div class="col-md-12">
+                        <label for="validationCustom01" class="form-label"><b> رقم الموبايل</b></label>
+                        <input type="number" class="form-control" name="phone" id="validationCustom01" value="<?= $phone ?>" required placeholder="برجاء ادخال رقم الهاتف ، فقط 11 رقم  ">
+                        <div class="valid-feedback">
+                            جيد
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="validationCustom01" class="form-label"><b> العنوان </b></label>
+                        <input type="text" class="form-control" name="shop_location" id="validationCustom01" value="" required placeholder="www.example.com">
+                        <div class="valid-feedback">
+                            جيد
+                        </div>
+                    </div>
+                    <div class="col-md-12">
                         <label for="validationCustom01" class="form-label"> <b>نوع المحل او القسم الخاص به</b></label>
                         <select name="department" id="validationcustom01" class="form-control">
                             <?php foreach ($s3 as $data) : ?>
-                                <option value="<?= $data['id'] ?>"><?= $data['name'] ?></option>
+                                <option value="<?= $data['id'] ?>"><?= $data['name'] ?> - <?= $data['category'] ?></option>
                             <?php endforeach; ?>
                         </select>
                         <div class="valid-feedback">
@@ -121,9 +139,16 @@ if (isset($_GET['update'])) {
                         </div>
                     </div>
                     <div class="col-md-12">
+                        <label for="validationCustom01" class="form-label"> <b>ترتيب المحل </b></label>
+                        <input type="number" class="form-control" name="arrangement" id="validationCustom01" value="<?= $row['arrangement'] ?>" required placeholder="برجاء ادخال رقم للترتيب">
+                        <div class="valid-feedback">
+                            الرقم متاح ، رائع جدا
+                        </div>
+                    </div>
+                    <div class="col-md-12">
                         <label for="validationCustom01" class="form-label"> الصورة الحالية :</label>
                         <img src="upload/<?= $row['image'] ?>" width="60px" alt="">
-                        <input type="file" class="form-control mt-2" name="file" id="validationCustom01" value="<?= $row['image'] ?>" >
+                        <input type="file" class="form-control mt-2" name="file" id="validationCustom01" value="<?= $row['image'] ?>">
                         <div class="valid-feedback">
                             الصورة جيدة يمكنك الاضافة الان
                         </div>

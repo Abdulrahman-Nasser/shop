@@ -9,15 +9,20 @@ include "../admin_functions/functions.php";
 // admin authorization
 auth_admin();
 
+
 // select for update
 $select3 = "SELECT * FROm `shops`";
-$s3 = mysqli_query($conn,$select3);
+$s3 = mysqli_query($conn, $select3);
 
 
 // edit main icon 
 $image_error = [];
 if (isset($_GET['update'])) {
     $id = $_GET['update'];
+
+    // select for validation arrangement
+    $select_arrangement = "SELECT * FROM `products` where id != $id";
+    $s_arrnge = mysqli_query($conn, $select_arrangement);
 
     // select for get data into inputs
     $select = "SELECT * From `products` where id = $id ";
@@ -30,6 +35,7 @@ if (isset($_GET['update'])) {
         $name = $_POST['name'];
         $description = $_POST['description'];
         $shopID = $_POST['department'];
+        $arrangement = $_POST['arrangement'];
 
         // Check if a new file was uploaded
         if (!empty($_FILES['file']['name'])) {
@@ -52,14 +58,14 @@ if (isset($_GET['update'])) {
         }
 
         // validation for arrangements
-        foreach ($s1 as $data) {
-            if ($arrangement == $data['arrangement']) {
+        foreach ($s_arrnge as $data) {
+            if ($arrangement == $data['arrangement'] && $shopID == $data['shopID']) {
                 $image_error[] = 'هذا الرقم مرتب من قبل برجاء تغير الرقم';
             }
         }
 
         if (empty($image_error)) {
-            $update = "UPDATE `products` SET `id`=$id,`name`='$name',`image`='$file_name',`shopID`='$shopID' WHERE id = $id";
+            $update = "UPDATE `products` SET `id`=$id,`name`='$name',`image`='$file_name',`arrangement`=$arrangement,`shopID`='$shopID' WHERE id = $id";
             $u = mysqli_query($conn, $update);
             $insert_msg[] = 'تم تعديل البيانات بنجاح';
             admin_path('products/listProduct.php');
@@ -99,7 +105,7 @@ if (isset($_GET['update'])) {
                             الاسم مناسب ، احسنت
                         </div>
                     </div>
-               
+
                     <div class="col-md-12">
                         <label for="validationCustom01" class="form-label"> <b>نوع المحل او القسم الخاص به</b></label>
                         <select name="department" id="validationcustom01" class="form-control">
@@ -111,10 +117,26 @@ if (isset($_GET['update'])) {
                             تم اختيار المحل
                         </div>
                     </div>
+
+                    <div class="col-md-12">
+                        <label for="validationCustom01" class="form-label"> <b>ترتيب المنتج</b></label>
+                        <input type="number" class="form-control" name="arrangement" id="validationCustom01" value="<?= $row['arrangement'] ?>" required placeholder="برجاء ادخال اللغة العربية فقط">
+                        <div class="valid-feedback">
+                            رائع
+                        </div>
+                        <?php if (!empty($arrange_error)) : ?>
+                            <div class="alert alert-danger bg-transparent border-0 text-danger text-center">
+                                <?php foreach ($arrange_error as $item) : ?>
+                                    <b><?= $item ?></b>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+
                     <div class="col-md-12">
                         <label for="validationCustom01" class="form-label"> الصورة الحالية :</label>
                         <img src="upload/<?= $row['image'] ?>" width="60px" alt="">
-                        <input type="file" class="form-control mt-2" name="file" id="validationCustom01" value="<?= $row['image'] ?>" >
+                        <input type="file" class="form-control mt-2" name="file" id="validationCustom01" value="<?= $row['image'] ?>">
                         <div class="valid-feedback">
                             الصورة جيدة يمكنك الاضافة الان
                         </div>

@@ -39,7 +39,7 @@ if (isset($_POST['send'])) {
 
     // validation for arrangements
     foreach ($s as $data) {
-        if ($arrangement == $data['arrangement']) {
+        if ($arrangement == $data['arrangement'] && $category == $data['category']) {
             $image_error[] = 'هذا الرقم مرتب من قبل برجاء تغير الرقم';
         }
     }
@@ -84,14 +84,17 @@ if (isset($_POST['send'])) {
                     </div>
                     <div class="col-md-12">
                         <label for="validationCustom01" class="form-label"> نوع القسم</label>
-                        <input type="text" class="form-control" name="category" id="validationCustom01" value="<?= $category ?>" required placeholder="رجالي - سيدات ... الخ">
+                        <select class="form-control" name="category" id="validationCustom01" value="" required>
+                            <option value="رجالي">رجالي</option>
+                            <option value="سيدات">سيدات</option>
+                        </select>
                         <div class="valid-feedback">
-                            الاسم مناسب ، احسنت
+                              جيد 
                         </div>
                     </div>
                     <div class="col-md-12">
                         <label for="validationCustom01" class="form-label"> ترتيب القسم</label>
-                        <input type="number" class="form-control" name="arrangement" id="validationCustom01" value="<?= $category?>" required placeholder="برجاء ادخال رقم  للترتيب ">
+                        <input type="number" class="form-control" name="arrangement" id="validationCustom01" value="<?= $category ?>" required placeholder="برجاء ادخال رقم  للترتيب ">
                         <div class="valid-feedback">
                             الاسم مناسب ، احسنت
                         </div>

@@ -5,6 +5,9 @@ include "../shared/asside.php";
 include "../admin_functions/configDB.php";
 include "../admin_functions/functions.php";
 
+// select all departments
+$select_departments = "SELECT * FROM main_icon";
+$s_department = mysqli_query($conn,$select_departments);
 
 // admin authorization
 auth_admin();
@@ -21,6 +24,7 @@ if (isset($_GET['update'])) {
     $select = "SELECT * From `departments` where id = $id ";
     $s = mysqli_query($conn, $select);
     $row = mysqli_fetch_assoc($s);
+
     $oldImg = $row['image'];
     if (isset($_POST['edit'])) {
         $insert_msg = [];
@@ -98,12 +102,13 @@ if (isset($_GET['update'])) {
                     </div>
                     <div class="col-md-12">
                         <label for="validationCustom01" class="form-label"> نوع القسم</label>
-                        <select class="form-control" name="category" id="validationCustom01" value="<?= $row['department'] ?>" required>
-                            <option value="رجالي">رجالي</option>
-                            <option value="سيدات">سيدات</option>
+                        <select class="form-control" name="category" id="validationCustom01" value="" required>
+                            <?php foreach ($s_department as $data) : ?>
+                                <option value="<?= $data['name'] ?>"><?= $data['name'] ?></option>
+                            <?php endforeach; ?>
                         </select>
                         <div class="valid-feedback">
-                              جيد 
+                            جيد
                         </div>
                     </div>
                     <div class="col-md-12">

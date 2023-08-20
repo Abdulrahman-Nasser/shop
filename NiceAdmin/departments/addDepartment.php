@@ -9,8 +9,13 @@ include "../admin_functions/functions.php";
 // admin authorization
 auth_admin();
 
+// select for departments
 $select = "SELECT * FROM departments";
 $s = mysqli_query($conn, $select);
+
+// select for icons
+$select_main_icon = "SELECT * FROM main_icon";
+$s_main_icon = mysqli_query($conn,$select_main_icon);
 
 // empty inputs
 $name = '';
@@ -85,8 +90,9 @@ if (isset($_POST['send'])) {
                     <div class="col-md-12">
                         <label for="validationCustom01" class="form-label"> نوع القسم</label>
                         <select class="form-control" name="category" id="validationCustom01" value="" required>
-                            <option value="رجالي">رجالي</option>
-                            <option value="سيدات">سيدات</option>
+                            <?php foreach($s_main_icon as $data) : ?>
+                           <option value="<?= $data['name'] ?>"><?= $data['name'] ?></option>
+                           <?php endforeach; ?>
                         </select>
                         <div class="valid-feedback">
                               جيد 
